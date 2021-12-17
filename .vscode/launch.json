@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-BelajarApplication<belajar>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.belajarjava.BelajarApplication",
+            "projectName": "belajar",
+            "args": ""
+        }
+    ]
+}
