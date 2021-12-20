@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -56,8 +57,14 @@ public class CategoryController {
     }
 
     @GetMapping
-    public Iterable<Category> findAll() {
-        return categoryService.findAll();
+    public Iterable<Category> findAll(Pageable pageable) {
+        return categoryService.findAll(pageable);
+    }
+
+    @GetMapping("/paging")
+    public Iterable<Category> findAllPaging() {
+        Pageable pageable = PageRequest.of(0, 4, Sort.by("id"));
+        return categoryService.findAll(pageable);
     }
 
     @GetMapping("/{id}")

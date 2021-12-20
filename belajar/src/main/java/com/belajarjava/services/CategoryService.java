@@ -34,6 +34,10 @@ public class CategoryService {
         return categoryRepo.findAll();
     }
 
+    public Iterable<Category> findAll(Pageable pageable) {
+        return categoryRepo.findAll(pageable);
+    }
+
     public void removeOne(long id) {
         categoryRepo.deleteById(id);
     }
