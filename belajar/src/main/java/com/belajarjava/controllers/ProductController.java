@@ -1,8 +1,11 @@
 package com.belajarjava.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.belajarjava.dto.ResponseData;
+import com.belajarjava.dto.SearchData;
 import com.belajarjava.models.entities.Product;
 import com.belajarjava.models.entities.Supplier;
 import com.belajarjava.services.ProductService;
@@ -42,7 +45,6 @@ public class ProductController {
                 responseData.getMessage().add(error.getDefaultMessage());
             }
             responseData.setStatus(false);
-            responseData.setPayload(null);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
         }
         responseData.setStatus(true);
@@ -88,4 +90,15 @@ public class ProductController {
     public void addSupplier(@RequestBody Supplier supplier, @PathVariable("id") long productId) {
         productService.addSupplier(supplier, productId);
     }
+
+    @PostMapping("/search/name")
+    public List<Product> getProductName(@RequestBody SearchData searchData) {
+        return productService.findByNameProductList(searchData.getSearchKey());
+    }
+
+    @PostMapping("/search/category/categoryname")
+    public List<Product> getCategoryName(@RequestBody SearchData searchData) {
+        return productService.findByCategory(searchData.getSearchKey());
+    }
+
 }

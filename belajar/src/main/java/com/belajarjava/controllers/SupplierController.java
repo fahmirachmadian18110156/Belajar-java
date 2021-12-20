@@ -1,8 +1,11 @@
 package com.belajarjava.controllers;
-    
+
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.belajarjava.dto.ResponseData;
+import com.belajarjava.dto.SearchData;
 import com.belajarjava.dto.SupplierData;
 import com.belajarjava.models.entities.Supplier;
 import com.belajarjava.services.SupplierService;
@@ -65,7 +68,7 @@ public class SupplierController {
             Errors errors) {
 
         ResponseData<Supplier> responseData = new ResponseData<>();
-        
+
         if (errors.hasErrors()) {
             for (ObjectError error : errors.getAllErrors()) {
                 responseData.getMessage().add(error.getDefaultMessage());
@@ -79,5 +82,15 @@ public class SupplierController {
         responseData.setStatus(true);
         responseData.setPayload(supplierService.create(supplier));
         return ResponseEntity.ok(responseData);
+    }
+
+    @PostMapping("/search/byname")
+    public List<Supplier> findByName(@RequestBody SearchData searchData) {
+        return supplierService.findByName(searchData.getSearchKey());
+    }
+
+    @PostMapping("/search/bynameoraddress")
+    public List<Supplier> findByNameOrAddress(@RequestBody SearchData searchData) {
+        return supplierService.findByNameOrAddress(searchData.getSearchKey(), searchData.getOtherSearchKey());
     }
 }

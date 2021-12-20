@@ -39,9 +39,9 @@ public class ProductService {
         productRepo.deleteById(id);
     }
 
-    public List<Product> findByName(String name) {
-        return productRepo.findByNameContains(name);
-    }
+    // public List<Product> findByName(String name) {
+    // return productRepo.findByNameContains(name);
+    // }
 
     public void addSupplier(Supplier supplier, Long productId) {
         Product product = findOne(productId);
@@ -50,5 +50,13 @@ public class ProductService {
         }
         product.getSuppliers().add(supplier);
         save(product);
+    }
+
+    public List<Product> findByNameProductList(String name) {
+        return productRepo.findByNameLike("%" + name + "%");
+    }
+
+    public List<Product> findByCategory(String categoryName) {
+        return productRepo.findByCategory("%" + categoryName + "%");
     }
 }

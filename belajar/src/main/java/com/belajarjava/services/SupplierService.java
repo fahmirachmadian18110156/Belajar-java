@@ -1,5 +1,6 @@
 package com.belajarjava.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -37,4 +38,11 @@ public class SupplierService {
         supplierRepo.deleteById(id);
     }
 
+    public List<Supplier> findByName(String name) {
+        return supplierRepo.findByNameContains(name);
+    }
+
+    public List<Supplier> findByNameOrAddress(String name, String address){
+        return supplierRepo.findByNameContainsAndAddressContains(name, address);
+    }
 }
